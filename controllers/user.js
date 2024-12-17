@@ -63,3 +63,21 @@ module.exports.loginUser = (req, res) => {
 		return res.status(400).send({ message: 'Invalid email format' });
 	}
 }
+
+module.exports.retrieveUserDetails = (req, res) => {
+
+    return User.findById(req.user.id)
+    .select('-password')
+    .then(user => {
+
+        if(!user){
+
+            return res.status(404).send({ message: 'User not found' })
+
+        } else{
+
+            return res.status(200).send({ user : user });
+        }  
+    })
+    .catch(error => errorHandler(error, req, res));
+};
