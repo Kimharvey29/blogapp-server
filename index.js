@@ -1,7 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const cors =require("cors")
+const cors = require('cors');
 
 
 const app = express();
@@ -18,13 +18,13 @@ db.on("error", console.error.bind(console, "Connection Error!"));
 db.once("open", ()=> console.log("Now connected to MongoDB Atlas."));
 
 const corsOptions = {
-    origin: ['http://localhost:4000/'],
-    credentials: true,
-    optionsSuccessStatus: 200 
+	origin: ['http://localhost:3000'],
+	credentials: true, //allow credentials example cookis, authorization headers
+	optionsSuccessStatus: 200
 }
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(cors(corsOptions));
 
 app.use("/users", userRoutes);
 app.use("/blogs", blogRoutes);
