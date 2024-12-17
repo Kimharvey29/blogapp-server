@@ -1,10 +1,13 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cors =require("cors")
+
 
 const app = express();
 
 dotenv.config()
+
 
 const userRoutes = require('./routes/user.js');
 const blogRoutes = require('./routes/blog.js');
@@ -14,7 +17,11 @@ let db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error!"));
 db.once("open", ()=> console.log("Now connected to MongoDB Atlas."));
 
-
+const corsOptions = {
+    origin: ['http://localhost:4000/'],
+    credentials: true,
+    optionsSuccessStatus: 200 
+}
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
