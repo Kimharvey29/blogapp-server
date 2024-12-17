@@ -11,4 +11,6 @@ router.post("/login", userController.loginUser);
 
 router.get("/details", verify , userController.retrieveUserDetails);
 
+
+
 module.exports = router;
